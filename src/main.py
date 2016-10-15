@@ -1,41 +1,9 @@
 from distutils.dir_util import copy_tree
-from os.path import dirname, abspath
-from watchdog.events import LoggingEventHandler
-from watchdog.observers import Observer
+import os.path
+from scan import Scan
 import click
-import time
 
-# TODO: Prevent mirror == base directory.
-
-class Scan:
-    def __init__(self, base, mirror):
-        self.observer = Observer()
-        self.base = base
-        self.mirror = mirror
-
-    def run(self):
-        event_handler = Event(self.base, self.mirror)
-        self.observer.schedule(event_handler, self.base, recursive=True)
-        self.observer.start()
-        try:
-            while True:
-                time.sleep(3)
-        except KeyboardInterrupt:
-            print("Stopping...")
-            self.observer.stop()
-
-        self.observer.join()
-
-class Event(LoggingEventHandler):
-
-    def __init__(self, base, mirror):
-        self.base = base
-        self.mirror = mirror
-
-    def dispatch(self, event):
-        print(copy(self.base, self.mirror))
-
-current_path = dirname(abspath(__file__))
+current_path = os.path.dirname(os.path.abspath(__file__))
 
 @click.command()
 @click.option('--base', default=current_path,
@@ -51,7 +19,7 @@ def main(base, mirror):
 
     # Mirror folder before starting scan
     print(copy(base, mirror))
-    
+
     s = Scan(base, mirror)
     s.run()
 
