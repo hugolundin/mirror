@@ -1,6 +1,6 @@
-from distutils.dir_util import copy_tree
 import os.path
 from scan import Scan
+from copy import copy
 import click
 
 current_path = os.path.dirname(os.path.abspath(__file__))
@@ -12,21 +12,14 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 @click.argument('mirror', type=click.Path())
 def main(base, mirror):
 
-    # Prevent usage of the same directory
     if base == mirror:
         print('Error: The directories can not be the same.')
         return
 
-    # Mirror folder before starting scan
+    # Initial mirroring before starting scan
     print(copy(base, mirror))
-
     s = Scan(base, mirror)
     s.run()
-
-def copy(base, mirror):
-    copy_tree(base, mirror, update=1)
-    return ("Copied '{base}' to '{mirror}'".format(base=base, mirror=mirror))
-
 
 if __name__ == '__main__':
     main()

@@ -15,6 +15,7 @@ class Scan:
         try:
             while True:
                 time.sleep(3)
+
         except KeyboardInterrupt:
             print("Stopping...")
             self.observer.stop()
