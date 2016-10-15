@@ -43,6 +43,12 @@ current_path = dirname(abspath(__file__))
                         help='The directory you want to mirror.')
 @click.argument('mirror', type=click.Path())
 def main(base, mirror):
+
+    # Prevent usage of the same directory
+    if base == mirror:
+        print('Error: The directories can not be the same.')
+        return
+
     s = Scan(base, mirror)
     s.run()
 
