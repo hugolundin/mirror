@@ -12,17 +12,23 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 @click.argument('mirror', type=click.Path())
 def main(base, mirror):
 
+    base = os.path.expanduser(base)
+    mirror = os.path.expanduser(mirror)
+
+    base = os.path.realpath(base)
+    mirror = os.path.realpath(mirror)
+
     # Prevent that mirroring is done to the base folder
-    if os.path.realpath(base) == os.path.realpath(mirror):
+    if base == mirror:
         print('Error: The directories can not be the same.')
         return
 
-    if os.path.realpath(base) in os.path.realpath(mirror):
-        print('Error: Mirror folder can not be a sub-directory of base folder.')
+    if os.path.expanduser(base) in mirror:
+        print('Error: Mirror folder can not be a sub-directory of the base folder.')
         return
 
     # If the mirror folder already exists, ask if the user wants to overwrite it
-    if os.path.exists(os.path.realpath(mirror)):
+    if os.path.realpath(mirror):
         i = input('Do you want to overwrite {mirror}? (Y/n) '.format(mirror=mirror))
         if i.lower() not in ["", "y", "yes"]:
             print('Aborting...')
