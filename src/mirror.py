@@ -49,6 +49,9 @@ def main(base, mirror):
         print('Error: The directories can not be the same.')
         return
 
+    # Mirror folder before starting scan
+    print(copy(base, mirror))
+    
     s = Scan(base, mirror)
     s.run()
 
