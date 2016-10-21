@@ -28,7 +28,7 @@ def main(base, mirror):
         return
 
     # If the mirror folder already exists, ask if the user wants to overwrite it
-    if os.path.realpath(mirror):
+    if os.path.exists(mirror):
         i = input('Do you want to overwrite {mirror}? (Y/n) '.format(mirror=mirror))
         if i.lower() not in ["", "y", "yes"]:
             print('Aborting...')
