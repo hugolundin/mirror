@@ -1,9 +1,9 @@
 from copy import copy
 from scan import Scan
 import click
-import os.path
+import os
 
-current_path = os.path.dirname(os.path.abspath(__file__))
+current_path = os.getcwd()
 
 @click.command()
 @click.option('--base', default=current_path,
