@@ -1,5 +1,5 @@
-from copy import copy
-from scan import Scan
+from mirror.copy import copy
+from mirror.scan import Scan
 import click
 import os
 

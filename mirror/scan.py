@@ -1,5 +1,5 @@
 from watchdog.observers import Observer
-from event import Event
+from mirror.event import Event
 import time
 
 class Scan:
