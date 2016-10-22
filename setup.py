@@ -8,7 +8,7 @@ setup(
   'console_scripts': ['mirror = mirror.main:main'],
   },
   install_requires=['click', 'watchdog'],
-  license='Creative Commons Attribution-Noncommercial-Share Alike license',
+  license='MIT License',
   long_description=open('README.md').read()
 )
 
